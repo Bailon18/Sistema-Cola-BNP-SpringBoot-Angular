@@ -1,0 +1,18 @@
+package com.GestionTurnosApiBack.model.services;
+
+import java.util.List;
+
+import com.GestionTurnosApiBack.model.entity.Modulo;
+
+public interface ModuloService {
+    
+    Modulo buscarPorId(Long id);
+    
+    List<Modulo> listarTodos();
+    
+    Modulo guardar(Modulo modulo);
+    
+    Modulo actualizar(Long id, Modulo modulo);
+    
+    void cambiarEstadoModulo(Long id, boolean activo);
+}
