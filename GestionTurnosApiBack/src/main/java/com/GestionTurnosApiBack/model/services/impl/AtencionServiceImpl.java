@@ -83,12 +83,9 @@ public class AtencionServiceImpl implements AtencionService {
 
 
     @Override
-    public Flux<List<Ticket>> obtenerTicketsPendientesYEnAtencionOrdenadosPorFecha() {
-        return Flux.interval(Duration.ofSeconds(3)) // Emitir un valor cada 3 segundos
-                .flatMap(tick -> Flux.fromIterable(ticketRepository.findByEstadoInOrderByFechaAsc(List.of("Pendiente", "Atendiendo"))))
-                .collectList()
-                .subscribeOn(Schedulers.boundedElastic())
-                .repeat(); // Repetir el flujo continuamente
+    public List<Ticket> obtenerTicketsPendientesYEnAtencionOrdenadosPorFecha() {
+        return ticketRepository.findByEstadoInOrderByFechaAsc(List.of("Pendiente", "Atendiendo"));
+            
     }
 
 }

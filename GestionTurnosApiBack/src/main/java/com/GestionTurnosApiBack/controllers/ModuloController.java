@@ -1,0 +1,57 @@
+package com.GestionTurnosApiBack.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.GestionTurnosApiBack.model.entity.Modulo;
+import com.GestionTurnosApiBack.model.services.ModuloService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/modulos")
+public class ModuloController {
+
+    @Autowired
+    private ModuloService moduloService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Modulo> buscarPorId(@PathVariable Long id) {
+        Modulo modulo = moduloService.buscarPorId(id);
+        if (modulo != null) {
+            return new ResponseEntity<>(modulo, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/guardar")
+    public ResponseEntity<Modulo> guardar(@RequestBody Modulo modulo) {
+        Modulo nuevoModulo = moduloService.guardar(modulo);
+        return new ResponseEntity<>(nuevoModulo, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Modulo> actualizar(@PathVariable Long id, @RequestBody Modulo modulo) {
+        Modulo moduloActualizado = moduloService.actualizar(id, modulo);
+        if (moduloActualizado != null) {
+            return new ResponseEntity<>(moduloActualizado, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/listar")
+    public ResponseEntity<List<Modulo>> listarTodos() {
+        List<Modulo> modulos = moduloService.listarTodos();
+        return new ResponseEntity<>(modulos, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> cambiarEstadoModulo(@PathVariable Long id, @RequestParam boolean activo) {
+        moduloService.cambiarEstadoModulo(id, activo);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+}
