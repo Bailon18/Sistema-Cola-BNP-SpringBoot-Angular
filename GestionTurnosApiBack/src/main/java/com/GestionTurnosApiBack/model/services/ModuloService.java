@@ -2,7 +2,9 @@ package com.GestionTurnosApiBack.model.services;
 
 import java.util.List;
 
-import com.GestionTurnosApiBack.model.entity.Modulo;
+import com.GestionTurnosApiBack.model.entity.*;
+
+
 
 public interface ModuloService {
     
@@ -15,4 +17,10 @@ public interface ModuloService {
     Modulo actualizar(Long id, Modulo modulo);
     
     void cambiarEstadoModulo(Long id, boolean activo);
+    
+    void agregarServiciosAModulo2(Long idModulo, List<Servicio> servicios);
+    
+    Modulo actualizarModulo(Long idModulo, Modulo moduloActualizado);
+    
+    
 }

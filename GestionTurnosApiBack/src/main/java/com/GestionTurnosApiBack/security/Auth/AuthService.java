@@ -50,18 +50,34 @@ public class AuthService {
     }
 
     public AuthResponse register(RegisterRequest request) {
-        User user = new User();
-        user.setId(request.getId());
-        user.setNombre(request.getNombre());
-        user.setContrasena(passwordEncoder.encode(request.getContrasena()));
-        user.setApellido(request.getApellido());
-        user.setCorreoElectronico(request.getCorreoElectronico());
-        user.setTelefono(request.getTelefono());
-        user.setCedula(request.getCedula());
-        user.setEstado(request.isEstado());
-        user.setUsername(request.getUsername());
-        user.setRole(request.getRole());
-        user.setServicio(request.getServicio());
+        User user;
+        if (request.getId() != null && userRepository.existsById(request.getId())) {
+            // Si el ID existe, actualizamos el usuario existente
+            user = userRepository.findById(request.getId()).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+            user.setNombre(request.getNombre());
+            user.setContrasena(passwordEncoder.encode(request.getContrasena()));
+            user.setApellido(request.getApellido());
+            user.setCorreoElectronico(request.getCorreoElectronico());
+            user.setTelefono(request.getTelefono());
+            user.setCedula(request.getCedula());
+            user.setEstado(request.isEstado());
+            user.setUsername(request.getUsername());
+            user.setRole(request.getRole());
+            user.setServicio(request.getServicio());
+        } else {
+            // Si no tiene ID, creamos un nuevo usuario
+            user = new User();
+            user.setNombre(request.getNombre());
+            user.setContrasena(passwordEncoder.encode(request.getContrasena()));
+            user.setApellido(request.getApellido());
+            user.setCorreoElectronico(request.getCorreoElectronico());
+            user.setTelefono(request.getTelefono());
+            user.setCedula(request.getCedula());
+            user.setEstado(request.isEstado());
+            user.setUsername(request.getUsername());
+            user.setRole(request.getRole());
+            user.setServicio(request.getServicio());
+        }
 
         userRepository.save(user);
 
@@ -74,8 +90,8 @@ public class AuthService {
         authResponse.setAuthorities(authorities);
         authResponse.setBearer("Bearer");
         authResponse.setServicio(user.getServicio());
-        
 
         return authResponse;
-    }  
+    }
+ 
 }

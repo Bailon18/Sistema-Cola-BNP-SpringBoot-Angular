@@ -15,7 +15,7 @@ public class TicketController {
     @Autowired
     private TicketService ticketService;
 
-    @PostMapping("/generar")
+    @PostMapping
     public ResponseEntity<Ticket> generarTicket(@RequestBody Ticket ticket) {
         Ticket nuevoTicket = ticketService.generarTicket(ticket);
         return new ResponseEntity<>(nuevoTicket, HttpStatus.CREATED);

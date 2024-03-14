@@ -84,8 +84,8 @@ public class AtencionServiceImpl implements AtencionService {
 
     @Override
     public List<Ticket> obtenerTicketsPendientesYEnAtencionOrdenadosPorFecha() {
-        return ticketRepository.findByEstadoInOrderByFechaAsc(List.of("Pendiente", "Atendiendo"));
-            
+         List<Ticket> tickets = ticketRepository.findByEstadoInOrderByFechaAsc(List.of("Pendiente", "Atendiendo"));
+         return tickets;
     }
 
 }

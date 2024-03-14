@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.GestionTurnosApiBack.model.entity.Modulo;
+import com.GestionTurnosApiBack.model.entity.Servicio;
 import com.GestionTurnosApiBack.model.repository.ModuloRepository;
 import com.GestionTurnosApiBack.model.services.ModuloService;
 
@@ -55,4 +56,29 @@ public class ModuloServiceImpl implements ModuloService {
     public List<Modulo> listarTodos() {
         return moduloRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
+    
+    @Override
+    public void agregarServiciosAModulo2(Long idModulo, List<Servicio> servicios) {
+        Modulo modulo = moduloRepository.findById(idModulo).orElse(null);
+        if (modulo != null) {
+            modulo.getServicios().addAll(servicios);
+            moduloRepository.save(modulo);
+        }
+    }
+    
+    @Override
+    public Modulo actualizarModulo(Long idModulo, Modulo moduloActualizado) {
+        Modulo moduloExistente = moduloRepository.findById(idModulo).orElse(null);
+        if (moduloExistente != null) {
+          
+            moduloExistente.setNombre(moduloActualizado.getNombre());
+            moduloExistente.setActivo(moduloActualizado.isActivo());
+            moduloExistente.setServicios(moduloActualizado.getServicios());
+           
+            return moduloRepository.save(moduloExistente);
+        }
+        return null; 
+    }
+
+
 }

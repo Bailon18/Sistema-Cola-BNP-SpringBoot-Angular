@@ -11,7 +11,7 @@ import com.GestionTurnosApiBack.security.Entity.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/usuarios")
 @CrossOrigin(origins = { "*" })
 public class UsuarioController {
 

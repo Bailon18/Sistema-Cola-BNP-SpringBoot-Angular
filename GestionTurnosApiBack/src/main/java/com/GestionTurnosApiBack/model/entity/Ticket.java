@@ -2,6 +2,7 @@ package com.GestionTurnosApiBack.model.entity;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import org.springframework.data.annotation.CreatedDate;
 
@@ -15,9 +16,8 @@ public class Ticket {
 
     private String numeroTicket;
     
-	@CreatedDate
-	@Temporal(TemporalType.TIMESTAMP)
-	private Timestamp fecha;
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date fecha; 
 
     @Column(columnDefinition = "VARCHAR(20) DEFAULT 'Pendiente'")
     private String estado; // Pendiente,  En progreso, Cancelado
@@ -59,11 +59,11 @@ public class Ticket {
         this.numeroTicket = numeroTicket;
     }
 
-    public Timestamp getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(Timestamp fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 

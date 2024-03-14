@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.GestionTurnosApiBack.model.entity.Modulo;
+import com.GestionTurnosApiBack.model.entity.Servicio;
 import com.GestionTurnosApiBack.model.services.ModuloService;
 
 import java.util.List;
@@ -27,31 +28,34 @@ public class ModuloController {
         }
     }
 
-    @PostMapping("/guardar")
+    @PostMapping
     public ResponseEntity<Modulo> guardar(@RequestBody Modulo modulo) {
         Modulo nuevoModulo = moduloService.guardar(modulo);
         return new ResponseEntity<>(nuevoModulo, HttpStatus.CREATED);
     }
 
+
+
+    @GetMapping
+    public ResponseEntity<List<Modulo>> listarTodos() {
+        List<Modulo> modulos = moduloService.listarTodos();
+        return new ResponseEntity<>(modulos, HttpStatus.OK);
+    }
+
+    @GetMapping("/desabilitar/{id}/{activo}")
+    public ResponseEntity<Void> cambiarEstadoModulo(@PathVariable Long id, @PathVariable boolean activo) {
+        moduloService.cambiarEstadoModulo(id, activo);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
     @PutMapping("/{id}")
-    public ResponseEntity<Modulo> actualizar(@PathVariable Long id, @RequestBody Modulo modulo) {
-        Modulo moduloActualizado = moduloService.actualizar(id, modulo);
-        if (moduloActualizado != null) {
+    public ResponseEntity<Modulo> actualizar(@PathVariable Long id, @RequestBody Modulo moduloActualizado) {
+        Modulo moduloActualizado2 = moduloService.actualizarModulo(id, moduloActualizado);
+        if (moduloActualizado2 != null) {
             return new ResponseEntity<>(moduloActualizado, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @GetMapping("/listar")
-    public ResponseEntity<List<Modulo>> listarTodos() {
-        List<Modulo> modulos = moduloService.listarTodos();
-        return new ResponseEntity<>(modulos, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> cambiarEstadoModulo(@PathVariable Long id, @RequestParam boolean activo) {
-        moduloService.cambiarEstadoModulo(id, activo);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 }

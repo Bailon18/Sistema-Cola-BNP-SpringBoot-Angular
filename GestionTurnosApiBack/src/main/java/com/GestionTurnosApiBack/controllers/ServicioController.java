@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.GestionTurnosApiBack.model.entity.Servicio;
 import com.GestionTurnosApiBack.model.services.ServicioService;
 
+
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -27,14 +30,35 @@ public class ServicioController {
         }
     }
 
-    @PostMapping("/guardar")
-    public ResponseEntity<Servicio> guardar(@RequestBody Servicio servicio) {
+    @PostMapping(consumes = {"multipart/form-data"})
+    public ResponseEntity<Servicio> guardar(
+    		@RequestPart("servicio") Servicio servicio,
+    		@RequestPart(name = "imagen", required = false) MultipartFile imagen
+    		) throws IOException {
+    	
+    	
+        if (imagen != null && !imagen.isEmpty()) {
+            byte[] imagenBytes = imagen.getBytes();
+            servicio.setImagen(imagenBytes);
+        }
+        
         Servicio nuevoServicio = servicioService.guardar(servicio);
         return new ResponseEntity<>(nuevoServicio, HttpStatus.CREATED);
     }
+    
+   
+    @PutMapping(value = "/{id}", consumes = {"multipart/form-data"})
+    public ResponseEntity<Servicio> actualizar(
+            @PathVariable Long id,
+            @RequestPart("servicio") Servicio servicio,
+            @RequestPart(name = "imagen", required = false) MultipartFile imagen
+    ) throws IOException {
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Servicio> actualizar(@PathVariable Long id, @RequestBody Servicio servicio) {
+        if (imagen != null && !imagen.isEmpty()) {
+            byte[] imagenBytes = imagen.getBytes();
+            servicio.setImagen(imagenBytes);
+        }
+
         Servicio servicioActualizado = servicioService.actualizar(id, servicio);
         if (servicioActualizado != null) {
             return new ResponseEntity<>(servicioActualizado, HttpStatus.OK);
@@ -43,14 +67,14 @@ public class ServicioController {
         }
     }
 
-    @GetMapping("/listar")
+    @GetMapping
     public ResponseEntity<List<Servicio>> listarTodos() {
         List<Servicio> servicios = servicioService.listarTodos();
         return new ResponseEntity<>(servicios, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deshabilitarServicio(@PathVariable Long id, @RequestParam boolean activo) {
+    @GetMapping("/desabilitar/{id}/{activo}")
+    public ResponseEntity<Void> deshabilitarServicio(@PathVariable Long id, @PathVariable boolean activo) {
         servicioService.deshabilitarServicio(id, activo);
         return new ResponseEntity<>(HttpStatus.OK);
     }

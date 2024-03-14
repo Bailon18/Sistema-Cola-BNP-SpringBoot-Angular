@@ -7,6 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
 @RestController
@@ -34,13 +38,10 @@ public class AtencionController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/tickets-pendientes-atencion")
-    public ResponseEntity<List<Ticket>> obtenerTicketsPendientesYEnAtencionOrdenadosPorFecha() {
-        List<Ticket> tickets = atencionService.obtenerTicketsPendientesYEnAtencionOrdenadosPorFecha().block(); // Block hasta que el flujo se complete
-        if (tickets != null) {
-            return new ResponseEntity<>(tickets, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @GetMapping("/tickets-pendientes-y-en-atencion")
+    public ResponseEntity<List<Ticket>> ticketsPendientesYEnAtencionOrdenadosPorFecha() {
+        List<Ticket> tickets = atencionService.obtenerTicketsPendientesYEnAtencionOrdenadosPorFecha();
+        return ResponseEntity.ok().body(tickets);
     }
+
 }

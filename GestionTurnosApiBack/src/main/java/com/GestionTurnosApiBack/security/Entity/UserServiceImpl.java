@@ -42,6 +42,6 @@ public class UserServiceImpl implements UserService {
         return usuarioRepository.existsByCorreoElectronico(correoElectronico);
     }
 
- 
+
 
 }
