@@ -32,9 +32,20 @@ public class SecurityConfig {
                 .disable())
             .authorizeHttpRequests(authRequest ->
               authRequest
+
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/usuarios/**").permitAll()
+                .requestMatchers("/clientes/**").permitAll()
+                .requestMatchers("/modulos/**").permitAll()
+                .requestMatchers("/tickets/**").permitAll()
+                .requestMatchers("/servicios/**").permitAll()
+                .requestMatchers("/atenciones/**").permitAll()
+                .requestMatchers("/atenciones/**").permitAll()
+                .requestMatchers("/llamar/**").permitAll()
+                .requestMatchers("/listado/**").permitAll()
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
+
                 )
             .sessionManagement(sessionManager->
                 sessionManager 

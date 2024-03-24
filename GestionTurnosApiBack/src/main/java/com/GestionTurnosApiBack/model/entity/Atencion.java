@@ -16,7 +16,7 @@ public class Atencion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @ManyToOne
     @JoinColumn(name = "id_ticket")
     private Ticket ticket;
@@ -24,6 +24,11 @@ public class Atencion {
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private User usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_modulo")
+    private Modulo modulo;
+    
 
     @Column(columnDefinition = "VARCHAR(20) DEFAULT 'Pendiente'")
     private String estado; // Pendiente,  En progreso, Cancelado
@@ -38,13 +43,15 @@ public class Atencion {
     public Atencion() {
     }
 
-    public Atencion(Ticket ticket, User usuario, String estado, Timestamp fechaHoraFin) {
-
+    public Atencion(Ticket ticket, User usuario, Modulo modulo, String estado, Timestamp fechaHoraInicio, Timestamp fechaHoraFin ) {
         this.ticket = ticket;
         this.usuario = usuario;
+        this.modulo = modulo; 
         this.estado = estado;
+        this.fechaHoraInicio = fechaHoraInicio;
         this.fechaHoraFin = fechaHoraFin;
     }
+
 
     public Long getId() {
         return id;
@@ -93,6 +100,36 @@ public class Atencion {
     public void setFechaHoraFin(Timestamp fechaHoraFin) {
         this.fechaHoraFin = fechaHoraFin;
     }
+    
+   
+	public Modulo getModulo() {
+		return modulo;
+	}
+
+	public void setModulo(Modulo modulo) {
+		this.modulo = modulo;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Atencion [id=");
+		builder.append(id);
+		builder.append(", ticket=");
+		builder.append(ticket);
+		builder.append(", usuario=");
+		builder.append(usuario);
+		builder.append(", modulo=");
+		builder.append(modulo);
+		builder.append(", estado=");
+		builder.append(estado);
+		builder.append(", fechaHoraInicio=");
+		builder.append(fechaHoraInicio);
+		builder.append(", fechaHoraFin=");
+		builder.append(fechaHoraFin);
+		builder.append("]");
+		return builder.toString();
+	}
 
 
     

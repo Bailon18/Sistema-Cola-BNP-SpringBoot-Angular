@@ -7,4 +7,8 @@ public interface ClienteService {
     Cliente buscarPorId(Long id);
     
     Cliente guardarCliente(Cliente cliente);
+    
+    Cliente buscarCliente(int numero);
+    
+    Cliente buscarClientePorDni(String dni);
 }

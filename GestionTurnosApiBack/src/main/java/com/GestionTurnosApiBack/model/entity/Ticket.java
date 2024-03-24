@@ -29,16 +29,21 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "id_modulo")
     private Modulo modulo;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_servicio")
+    private Servicio servicio;
 
     public Ticket() {
     }
 
 
-    public Ticket(Long id, String numeroTicket, String estado, Cliente cliente, Modulo modulo) {
+    public Ticket(Long id, String numeroTicket, String estado, Cliente cliente, Servicio servicio, Modulo modulo) {
         this.id = id;
         this.numeroTicket = numeroTicket;
         this.estado = estado;
         this.cliente = cliente;
+        this.servicio = servicio;
         this.modulo = modulo;
     }
 
@@ -83,24 +88,47 @@ public class Ticket {
         this.cliente = cliente;
     }
 
-    public Modulo getModulo() {
-        return modulo;
-    }
 
-    public void setModulo(Modulo modulo) {
-        this.modulo = modulo;
-    }
+	public Servicio getServicio() {
+		return servicio;
+	}
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Ticket{id=").append(id);
-        sb.append(", numeroTicket='").append(numeroTicket).append('\'');
-        sb.append(", fecha=").append(fecha);
-        sb.append(", estado='").append(estado).append('\'');
-        sb.append(", cliente=").append(cliente);
-        sb.append(", modulo=").append(modulo);
-        sb.append('}');
-        return sb.toString();
-    }
+
+	public void setServicio(Servicio servicio) {
+		this.servicio = servicio;
+	}
+
+	
+	
+	public Modulo getModulo() {
+		return modulo;
+	}
+
+
+	public void setModulo(Modulo modulo) {
+		this.modulo = modulo;
+	}
+
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Ticket [id=");
+		builder.append(id);
+		builder.append(", numeroTicket=");
+		builder.append(numeroTicket);
+		builder.append(", fecha=");
+		builder.append(fecha);
+		builder.append(", estado=");
+		builder.append(estado);
+		builder.append(", cliente=");
+		builder.append(cliente);
+		builder.append(", servicio=");
+		builder.append(servicio);
+		builder.append("]");
+		return builder.toString();
+	}
+
+    
+
 }

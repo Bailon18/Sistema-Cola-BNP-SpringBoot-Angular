@@ -1,5 +1,6 @@
 package com.GestionTurnosApiBack.controllers;
 
+import com.GestionTurnosApiBack.model.entity.Atencion;
 import com.GestionTurnosApiBack.model.entity.Ticket;
 import com.GestionTurnosApiBack.model.services.AtencionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,14 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/atenciones")
+@CrossOrigin(origins = { "*" })
 public class AtencionController {
 
     @Autowired
@@ -42,6 +40,13 @@ public class AtencionController {
     public ResponseEntity<List<Ticket>> ticketsPendientesYEnAtencionOrdenadosPorFecha() {
         List<Ticket> tickets = atencionService.obtenerTicketsPendientesYEnAtencionOrdenadosPorFecha();
         return ResponseEntity.ok().body(tickets);
+    }
+    
+    @PostMapping("/guardar")
+    public ResponseEntity<Atencion> guardarAtencion(@RequestBody Atencion atencion) {
+    	
+        Atencion nuevaAtencion = atencionService.guardarAtencion(atencion);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevaAtencion);
     }
 
 }

@@ -5,14 +5,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.GestionTurnosApiBack.Utils.ModuloTicketDTO;
 import com.GestionTurnosApiBack.model.entity.Modulo;
-import com.GestionTurnosApiBack.model.entity.Servicio;
 import com.GestionTurnosApiBack.model.services.ModuloService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/modulos")
+@CrossOrigin(origins = { "*" })
 public class ModuloController {
 
     @Autowired
@@ -56,6 +57,12 @@ public class ModuloController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    
+    @GetMapping("/buscarServicio/{idServicio}")
+    public ResponseEntity<List<ModuloTicketDTO>> getTotalTicketsByServicio(@PathVariable Long idServicio) {
+        List<ModuloTicketDTO> moduloTickets = moduloService.getTotalTicketsByServicioo(idServicio);
+        return new ResponseEntity<>(moduloTickets, HttpStatus.OK);
     }
 
 }

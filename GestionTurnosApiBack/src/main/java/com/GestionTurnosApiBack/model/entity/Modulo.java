@@ -23,9 +23,13 @@ public class Modulo {
         inverseJoinColumns = @JoinColumn(name = "id_servicio")
     )
     private List<Servicio> servicios;
-
+    
 	public Modulo() {
-		super();
+
+	}
+
+	public Modulo(Long id) {
+		this.id = id;
 	}
 
 	public Modulo(Long id, String nombre, boolean activo, List<Servicio> servicios) {

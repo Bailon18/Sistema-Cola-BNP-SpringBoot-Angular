@@ -14,4 +14,5 @@ public interface AtencionService {
 	List<Ticket> obtenerTicketsPendientesYEnAtencionOrdenadosPorFecha();
 	void cancelarAtencion(Long idAtencion);
 	//Flux<List<Ticket>> streamTicketsPendientesYEnAtencionOrdenadosPorFecha();
+	Atencion guardarAtencion(Atencion atencion);
 }

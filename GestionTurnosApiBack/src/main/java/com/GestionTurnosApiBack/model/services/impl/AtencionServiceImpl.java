@@ -88,4 +88,12 @@ public class AtencionServiceImpl implements AtencionService {
          return tickets;
     }
 
+	@Override
+	public Atencion guardarAtencion(Atencion atencion) {
+		
+		System.out.println("Atencio: " + atencion);
+		
+		return this.atencionRepository.save(atencion);
+	}
+
 }

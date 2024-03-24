@@ -1,5 +1,7 @@
 package com.GestionTurnosApiBack.model.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +35,10 @@ public class TicketServiceImpl implements TicketService {
             ticket.setEstado(nuevoEstado);
             ticketRepository.save(ticket);
         }
+    }
+    
+    @Override
+    public List<Ticket> listarTicketsPorEstadoYModulo(Long moduloId, String estado) {
+        return ticketRepository.findByModuloIdAndEstadoOrderByIdDesc(moduloId, estado);
     }
 }

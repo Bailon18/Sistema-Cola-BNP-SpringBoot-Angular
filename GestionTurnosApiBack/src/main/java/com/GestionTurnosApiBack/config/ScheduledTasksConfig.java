@@ -10,11 +10,11 @@ import com.GestionTurnosApiBack.model.services.AtencionService;
 @Configuration
 @EnableScheduling
 public class ScheduledTasksConfig {
-    @Autowired
+    /*@Autowired
     private AtencionService atencionService;
 
     @Scheduled(fixedRate = 6000)
     public void actualizarEstadoCompetenciasVencidas() {
     	atencionService.obtenerTicketsPendientesYEnAtencionOrdenadosPorFecha();
-    }
+    }*/
 }

@@ -1,5 +1,6 @@
 package com.GestionTurnosApiBack.security.Auth;
 
+import com.GestionTurnosApiBack.model.entity.Modulo;
 import com.GestionTurnosApiBack.model.entity.Servicio;
 
 public class RegisterRequest {
@@ -14,7 +15,7 @@ public class RegisterRequest {
 	private boolean estado;
 	private String username;
 	private String role;
-	private Servicio servicio;
+	private Modulo modulo;
 
 	public Long getId() {
 		return id;
@@ -96,13 +97,14 @@ public class RegisterRequest {
 		this.role = role;
 	}
 
-	public Servicio getServicio() {
-		return servicio;
+	public Modulo getModulo() {
+		return modulo;
 	}
 
-	public void setServicio(Servicio servicio) {
-		this.servicio = servicio;
+	public void setModulo(Modulo modulo) {
+		this.modulo = modulo;
 	}
+
 
 	
 

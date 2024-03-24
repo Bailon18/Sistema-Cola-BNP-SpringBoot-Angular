@@ -44,7 +44,7 @@ public class AuthService {
         authResponse.setUsuarioId(usuarioencontrado.getId());
         authResponse.setAuthorities(authorities);
         authResponse.setBearer("Bearer");
-        authResponse.setServicio(usuarioencontrado.getServicio());
+        authResponse.setModulo(usuarioencontrado.getModulo());
 
         return authResponse;
     }
@@ -63,7 +63,7 @@ public class AuthService {
             user.setEstado(request.isEstado());
             user.setUsername(request.getUsername());
             user.setRole(request.getRole());
-            user.setServicio(request.getServicio());
+            user.setModulo(request.getModulo());
         } else {
             // Si no tiene ID, creamos un nuevo usuario
             user = new User();
@@ -76,7 +76,7 @@ public class AuthService {
             user.setEstado(request.isEstado());
             user.setUsername(request.getUsername());
             user.setRole(request.getRole());
-            user.setServicio(request.getServicio());
+            user.setModulo(request.getModulo());
         }
 
         userRepository.save(user);
@@ -89,7 +89,7 @@ public class AuthService {
         authResponse.setNombreUsuario(user.getUsername());
         authResponse.setAuthorities(authorities);
         authResponse.setBearer("Bearer");
-        authResponse.setServicio(user.getServicio());
+        authResponse.setModulo(user.getModulo());
 
         return authResponse;
     }

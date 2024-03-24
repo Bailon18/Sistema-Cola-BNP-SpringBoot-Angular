@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.GestionTurnosApiBack.model.entity.Modulo;
 import com.GestionTurnosApiBack.model.entity.Servicio;
 
 import jakarta.persistence.Basic;
@@ -42,8 +43,8 @@ public class User implements UserDetails {
 	private String role;
 
 	@ManyToOne
-	@JoinColumn(name = "id_servicio")
-	private Servicio servicio;
+	@JoinColumn(name = "id_modulo")
+	private Modulo modulo;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -96,7 +97,7 @@ public class User implements UserDetails {
 	
 
 	public User(String nombre, String apellido, String correoElectronico, String contrasena, String telefono,
-			String cedula, boolean estado, String username, String role, Servicio servicio) {
+			String cedula, boolean estado, String username, String role, Modulo modulo) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.correoElectronico = correoElectronico;
@@ -106,7 +107,7 @@ public class User implements UserDetails {
 		this.estado = estado;
 		this.username = username;
 		this.role = role;
-		this.servicio = servicio;
+		this.modulo = modulo;
 	}
 
 	@Override
@@ -190,13 +191,15 @@ public class User implements UserDetails {
 		this.username = username;
 	}
 
-	public Servicio getServicio() {
-		return servicio;
+	public Modulo getModulo() {
+		return modulo;
 	}
 
-	public void setServicio(Servicio servicio) {
-		this.servicio = servicio;
+	public void setModulo(Modulo modulo) {
+		this.modulo = modulo;
 	}
+
+
 
 	
 

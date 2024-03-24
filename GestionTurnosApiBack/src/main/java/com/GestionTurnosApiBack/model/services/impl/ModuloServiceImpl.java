@@ -1,5 +1,7 @@
 package com.GestionTurnosApiBack.model.services.impl;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.GestionTurnosApiBack.Utils.ModuloTicketDTO;
 import com.GestionTurnosApiBack.model.entity.Modulo;
 import com.GestionTurnosApiBack.model.entity.Servicio;
 import com.GestionTurnosApiBack.model.repository.ModuloRepository;
@@ -80,5 +83,22 @@ public class ModuloServiceImpl implements ModuloService {
         return null; 
     }
 
+  
+    public List<ModuloTicketDTO> getTotalTicketsByServicioo(Long idServicio) {
+        
+    	List<Object[]> results = moduloRepository.getTotalTicketsByModuloId(idServicio);
+        
+        List<ModuloTicketDTO> moduloTickets = new ArrayList<>();
+
+        for (Object[] result : results) {
+            System.out.println("Valor de result[0]: " + result[0]);
+            System.out.println("Valor de result[1]: " + result[1]);
+
+            ModuloTicketDTO moduloTicketDTO = new ModuloTicketDTO((long) result[0], ((BigDecimal) result[1]).intValue());
+            moduloTickets.add(moduloTicketDTO);
+        }
+
+        return moduloTickets;
+    }
 
 }

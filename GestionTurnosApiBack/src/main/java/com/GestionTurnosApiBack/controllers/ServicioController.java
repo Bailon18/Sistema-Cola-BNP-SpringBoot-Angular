@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/servicios")
+@CrossOrigin(origins = { "*" })
 public class ServicioController {
 
     @Autowired

@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import com.GestionTurnosApiBack.model.entity.Modulo;
 import com.GestionTurnosApiBack.model.entity.Servicio;
 
 
@@ -14,7 +15,7 @@ public class AuthResponse {
 	private String nombreUsuario;
 	private Collection<? extends GrantedAuthority> authorities;
 	private Long usuarioId;
-	private Servicio servicio;
+	private Modulo modulo;
 	
 	
 
@@ -81,16 +82,13 @@ public class AuthResponse {
 		this.usuarioId = usuarioId;
 	}
 
-	public Servicio getServicio() {
-		return servicio;
+	public Modulo getModulo() {
+		return modulo;
 	}
 
-	public void setServicio(Servicio servicio) {
-		this.servicio = servicio;
+	public void setModulo(Modulo modulo) {
+		this.modulo = modulo;
 	}
-
-	
-	
 
 
 }

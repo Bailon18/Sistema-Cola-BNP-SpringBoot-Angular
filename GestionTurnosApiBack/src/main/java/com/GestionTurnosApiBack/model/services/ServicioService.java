@@ -15,4 +15,6 @@ public interface ServicioService {
     Servicio actualizar(Long id, Servicio servicio);
     
     void deshabilitarServicio(Long id, boolean activo);
+    
+ 
 }
