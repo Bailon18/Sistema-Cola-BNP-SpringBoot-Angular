@@ -1,0 +1,110 @@
+<mat-card class="mt-5" style="background-color: rgb(170, 175, 179);">
+    <mat-card-content>
+      <div class="row">
+        <div class="col-md-9">
+          <br>
+          <mat-card class="p-3">
+              <div class="row">
+                  <div class="row">
+                      <div class="col-6 mb-2">
+                          <mat-card-title>
+                  
+                          </mat-card-title>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col">
+                          <mat-card-content>
+                              <div class="row">
+                                  <div class="col-6">
+                                      <div class="row">
+                                          <div class="col-8">
+                                          </div>
+                                          <div class="col-4" style="margin-top: 18px;">
+                                              <!-- <mat-checkbox color="primary" class="example-margin" [(ngModel)]="estadoFiltro" (click)="mostrarInactivos()">Mostrar Inactivos</mat-checkbox> -->
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-6 text-end">
+                                      <!-- <button class="btn btn-primary" (click)="abrirDialogoNuevoUsuario()">Nuevo Usuario</button> -->
+                                  </div>
+                              </div>
+                              <div class="mat-elevation-z8" style="max-height: 400px; overflow-y: auto;">
+                                  <table mat-table [dataSource]="dataSource">
+                                      <ng-container matColumnDef="TICKET">
+                                      <th mat-header-cell *matHeaderCellDef> N° Ticket</th>
+                                      <td mat-cell *matCellDef="let fila"> {{fila.numeroTicket}} </td>
+                                      </ng-container>
+                                  
+                                      <ng-container matColumnDef="FECHA">
+                                        <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                                        <td mat-cell *matCellDef="let fila"> {{ fila.fecha | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+                                      </ng-container>
+                                      
+                          
+                                      <ng-container matColumnDef="CLIENTE">
+                                          <th mat-header-cell *matHeaderCellDef> Cliente </th>
+                                          <td mat-cell *matCellDef="let fila"> {{fila.cliente.nombres}} {{fila.cliente.apellidoPaterno}} {{fila.cliente.apellidoMaterno}}</td>
+                                      </ng-container>
+                                      
+                                                                
+                                      <ng-container matColumnDef="SERVICIO">
+                                        <th mat-header-cell *matHeaderCellDef> Servicio </th>
+                                        <td mat-cell *matCellDef="let fila"> {{fila.servicio.nombreServicio}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="ESTADO">
+                                      <th mat-header-cell *matHeaderCellDef> Estado </th>
+                                      <td mat-cell *matCellDef="let fila"> {{fila.estado}} </td>
+                                  </ng-container>
+              
+                                  
+                                  <ng-container matColumnDef="ACCIONES">
+                                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                                    <td mat-cell *matCellDef="let fila">
+                                      <a class="pointer iconosAccion text-success" matTooltip="Seleccionar Cliente" (click)="seleccionarCliente(fila)">
+                                        <i class="fas fa-check-circle"></i>
+                                      </a>
+                                      
+                            
+                                    </td>
+                                  </ng-container>
+                                  
+                                      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+                                      <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+                                  </table>
+                                  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                                      aria-label="">
+                                  </mat-paginator>
+                              </div>
+                          </mat-card-content>
+                      </div>
+                  </div>
+              </div>
+          </mat-card>
+        </div>
+  
+        <div class="col-md-3">
+          <br>
+          <mat-card class="p-3">
+            <mat-card-title>Turno en Atención</mat-card-title>
+            <br>
+            <mat-card-content>
+              <div>
+                <p><strong><i class="fas fa-user"></i> Cliente:   </strong> <span *ngIf="selectedRow">{{ selectedRow.cliente.nombres }} {{ selectedRow.cliente.apellidoPaterno }} {{ selectedRow.cliente.apellidoMaterno }}</span></p>
+                <p><strong><i class="fas fa-cog"></i> Servicio:   </strong> <span *ngIf="selectedRow">{{ selectedRow.servicio.nombreServicio }}</span></p>
+                <p><strong><i class="fas fa-ticket-alt"></i> Ticket:   </strong> <span *ngIf="selectedRow">{{ selectedRow.numeroTicket }}</span></p>
+              </div>
+              <br>
+              <div class="d-flex flex-column">
+                <button mat-stroked-button color="primary" (click)="llamarCliente(selectedRow)"><i class="fas fa-phone-alt" ></i> Llamar</button><br> 
+                <button mat-stroked-button color="success"><i class="fas fa-check"></i> Atender</button><br> 
+                <button mat-stroked-button color="warn"><i class="fas fa-times"></i> Finalizar</button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
